@@ -6,9 +6,10 @@ WORKDIR /eva-stt-tts
 
 RUN pip install --upgrade pip && \
     pip3 install SpeechRecognition && \
-    pip3 install pyttsx3 && \
+    pip install pyttsx3==2.71 && \
     apt-get update -y && \
-    apt-get install python3-pyaudio -y
+    apt-get install python3-pyaudio -y && \
+    apt-get install libespeak1 -y
 
 COPY . .
 
