@@ -2,11 +2,12 @@ import speech_recognition as sr
 import pyttsx3
 
 audio = sr.Recognizer()
-tts = pyttsx3.init()
+maquina = pyttsx3.init()
 
-tts.say('EVA inicializada')
-tts.say('Como posso te ajudar?')
-tts.runAndWait()
+maquina.say('EVA inicializada')
+
+print('****************')
+
 
 try:
     with sr.Microphone() as source:
@@ -18,6 +19,8 @@ try:
 
         if 'eva' in comando:
             print(comando)
+            maquina.say(comando)
+            maquina.runAndWait()
 
 
 except:
