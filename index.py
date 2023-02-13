@@ -4,24 +4,30 @@ import pyttsx3
 audio = sr.Recognizer()
 maquina = pyttsx3.init()
 
-maquina.say('EVA inicializada')
+print('EVA iniciada')
 
-print('****************')
+def iniciarComando():
+    try:
+        with sr.Microphone() as source:
+            print('Escutando...')
+            voz = audio.listen(source)
 
+            comando = audio.recognize_google(voz, language='pt-BR')
+            comando = comando.lower()
 
-try:
-    with sr.Microphone() as source:
-        print('EVA está te ouvindo...')
-        voz = audio.listen(source)
+            if 'eva' in comando:
+                comando = comando.replace('eva', '', 1)
+                maquina.say(comando)
+                maquina.runAndWait()
+            
+            if 'erva' in comando:
+                comando = comando.replace('erva', '', 1)
+                maquina.say(comando)
+                maquina.runAndWait()
 
-        comando = audio.recognize_google(voz, language='pt-BR')
-        comando = comando.lower()
+    except:
+        print('Audio não foi capturado...')
 
-        if 'eva' in comando:
-            print(comando)
-            maquina.say(comando)
-            maquina.runAndWait()
+    return comando
 
-
-except:
-    print('Audio não foi capturado...')
+iniciarComando()

@@ -12,3 +12,9 @@ docker run --rm -it --name eva-tts-stt amaralfelipe1522/eva-stt-tts:1.0 sh
 ```docker
 docker run --rm -it --device /dev/snd --name eva-tts-stt amaralfelipe1522/eva-stt-tts:1.0 sh
 ```
+
+pip install PyAudio
+pip install pywhatkit
+pip install pyttsx3
+pip install wikipedia
+pip install SpeechRecognition
