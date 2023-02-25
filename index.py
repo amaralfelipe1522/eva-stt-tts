@@ -2,7 +2,7 @@ import speech_recognition as sr
 import pyttsx3
 
 microfone = sr.Recognizer()
-engine = pyttsx3.init()
+engine = pyttsx3.init('dummy')
 
 print('EVA iniciada')
 
@@ -32,5 +32,11 @@ try:
             engine.say(comando)
             engine.runAndWait()
 
-except:
+        if 'ela' in comando:
+            comando = comando.replace('ela', '', 1)
+            engine.say(comando)
+            engine.runAndWait()
+
+except Exception as err:
     print('Audio não foi capturado...')
+    print(err)
