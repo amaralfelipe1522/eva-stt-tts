@@ -1,28 +1,36 @@
 import speech_recognition as sr
 import pyttsx3
 
-audio = sr.Recognizer()
-maquina = pyttsx3.init()
+microfone = sr.Recognizer()
+engine = pyttsx3.init()
 
 print('EVA iniciada')
 
 try:
     with sr.Microphone() as source:
+        # microfone.adjust_for_ambient_noise(source)
         print('Escutando...')
-        voz = audio.listen(source)
+        audioCapturado = microfone.listen(source)
 
-        comando = audio.recognize_google(voz, language='pt-BR')
+        comando = microfone.recognize_google(audioCapturado, language='pt-BR')
         comando = comando.lower()
 
+        print("Comando capturado: " + comando)
+            
         if 'eva' in comando:
             comando = comando.replace('eva', '', 1)
-            maquina.say(comando)
-            maquina.runAndWait()
+            engine.say(comando)
+            engine.runAndWait()
         
         if 'erva' in comando:
             comando = comando.replace('erva', '', 1)
-            maquina.say(comando)
-            maquina.runAndWait()
+            engine.say(comando)
+            engine.runAndWait()
+
+        if 'evelyn' in comando:
+            comando = comando.replace('evelyn', '', 1)
+            engine.say(comando)
+            engine.runAndWait()
 
 except:
     print('Audio não foi capturado...')

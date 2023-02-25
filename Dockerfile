@@ -1,23 +1,14 @@
-# syntax=docker/dockerfile:1
-
-FROM python:latest
-
-ENV DEBIAN_FRONTEND noninteractive
+FROM python:3.10.6
 
 WORKDIR /eva-stt-tts
 
 RUN apt-get update -y && \
     apt-get -y install --no-install-recommends \
-        python3-pyaudio \
-        libespeak1 \
-        alsa-tools \
-        libsndfile1-dev \
-        pulseaudio-module-jack \
-        alsa-utils && \
-    pip install --upgrade pip && \
-    pip install pyttsx3==2.71 \
-    SpeechRecognition
+    python3-pyaudio && \
+    pip3 install --upgrade pip && \
+    pip3 install SpeechRecognition \
+    pyttsx3
 
 COPY . .
 
-CMD [ "python", "index.py" ]
+CMD [ "python" ]
