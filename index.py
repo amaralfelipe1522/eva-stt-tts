@@ -18,7 +18,7 @@ try:
 
         print("Comando capturado: " + comando)
 
-        comando = 'eva Vocês se encontram na entrada da pequena vila de Alderspring, onde a última luz do sol pinta o céu em tons de laranja e púrpura. As primeiras estrelas começam a aparecer, pontilhando o firmamento com promessas de mistérios por descobrir. O vento carrega o cheiro de pão recém-assado, misturado com o aroma da terra molhada da recente chuva de primavera.'
+        # comando = 'eva Vocês se encontram na entrada da pequena vila de Alderspring, onde a última luz do sol pinta o céu em tons de laranja e púrpura. As primeiras estrelas começam a aparecer, pontilhando o firmamento com promessas de mistérios por descobrir. O vento carrega o cheiro de pão recém-assado, misturado com o aroma da terra molhada da recente chuva de primavera.'
             
         if 'eva' in comando:
             comando = comando.replace('eva', '', 1)

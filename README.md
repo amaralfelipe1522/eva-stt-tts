@@ -3,26 +3,22 @@
 Módulo responsável por realizar o processo de STT e TTS da assistente virtual EVA
 
 ```docker
-docker build -t amaralfelipe1522/eva-stt-tts:1.0 .
+docker build -t amaralfelipe1522/eva-stt-tts:2.0 .
 ```
 
 ```docker
-docker run --rm -it --name eva-tts-stt amaralfelipe1522/eva-stt-tts:1.0 sh
+docker run --rm -it --privileged --name eva\
+    --device /dev/snd \
+    --group-add audio \
+    -e PULSE_SERVER=unix:/run/user/$(id -u)/pulse/native \
+    -v /run/user/$(id -u)/pulse/native:/run/user/$(id -u)/pulse/native \
+    -v /run/user/$(id -u)/pulse:/run/user/$(id -u)/pulse \
+    -e XDG_RUNTIME_DIR=/run/user/$(id -u) \
+    -v /etc/machine-id:/etc/machine-id \
+    -v /usr/share/alsa/usr/share/alsa \
+    -v /etc/asound.conf/etc/asound.conf \
+    amaralfelipe1522/eva-stt-tts:2.0
 ```
-
-```docker
-docker run --rm -it --device /dev/snd --name eva-tts-stt amaralfelipe1522/eva-stt-tts:1.0 sh
-```
-
-pip install PyAudio
-
-pip install pywhatkit
-
-pip install pyttsx3
-
-pip install wikipedia
-
-pip install SpeechRecognition
 
 -----------------------
 
@@ -36,3 +32,9 @@ Extrair os arquivos: Após baixar o arquivo ZIP, extraia seu conteúdo para um d
 Adicionar ao PATH: Para usar o FFmpeg de qualquer lugar no seu sistema, você precisa adicionar o diretório onde os binários do FFmpeg foram extraídos ao PATH do sistema. Você pode fazer isso nas configurações de ambiente do Windows.
 
 winget install "FFmpeg (Essentials Build)"
+
+sudo apt install ffmpeg
+
+sudo apt install portaudio19-dev python3-dev
+
+
