@@ -1,25 +1,32 @@
 import speech_recognition as sr
-from gtts import gTTS
 import pygame
+from gtts import gTTS
 from io import BytesIO
 from pydub import AudioSegment, effects
 
-microfone = sr.Recognizer()
-        
 print('EVA iniciada')
 
-try:
-    with sr.Microphone() as source:
-        # microfone.adjust_for_ambient_noise(source)
-        print('Escutando...')
-        audioCapturado = microfone.listen(source)
-        comando = microfone.recognize_google(audioCapturado, language='pt-BR')
-        comando = comando.lower()
+def sttModule():    
+    try:
+        microfone = sr.Recognizer()
+        with sr.Microphone() as source:
+            print('Escutando...')
+            # microfone.adjust_for_ambient_noise(source)
+            audioCapturado = microfone.listen(source)
+            comandoReconhecido = microfone.recognize_google(audioCapturado, language='pt-BR')
+            comandoReconhecido = comandoReconhecido.lower()
 
-        print("Comando capturado: " + comando)
+            print("Comando capturado: " + comandoReconhecido)
+            # comandoReconhecido = 'eva Vocês se encontram na entrada da pequena vila de Alderspring, onde a última luz do sol pinta o céu em tons de laranja e púrpura.
+            return comandoReconhecido
+    except Exception as err:
+        print('Audio não foi capturado...')
+        print(err)
 
-        # comando = 'eva Vocês se encontram na entrada da pequena vila de Alderspring, onde a última luz do sol pinta o céu em tons de laranja e púrpura. As primeiras estrelas começam a aparecer, pontilhando o firmamento com promessas de mistérios por descobrir. O vento carrega o cheiro de pão recém-assado, misturado com o aroma da terra molhada da recente chuva de primavera.'
-            
+comando = sttModule()
+
+def ttsModule(comando):
+    try:
         if 'eva' in comando:
             comando = comando.replace('eva', '', 1)
             # Cria um objeto gTTS
@@ -60,6 +67,8 @@ try:
         # if 'evelyn' in comando:
         # if 'ela' in comando:
 
-except Exception as err:
-    print('Audio não foi capturado...')
-    print(err)
+    except Exception as err:
+        print('Não foi possível reproduzir o áudio...')
+        print(err)
+
+ttsModule(comando)
