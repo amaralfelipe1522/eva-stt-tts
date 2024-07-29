@@ -30,4 +30,4 @@ RUN pip install pyaudio
 COPY . .
 
 # Define o comando padrão para executar a aplicação
-CMD ["python", "index.py"]
+CMD ["python", "main.py"]
