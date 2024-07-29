@@ -6,17 +6,22 @@ class STTModule:
         self.microfone = sr.Recognizer()
 
     def capturar_audio(self):    
-        try:
-            with sr.Microphone() as source:
-                print('Escutando...')
-                audioCapturado = self.microfone.listen(source)
-                comandoReconhecido = self.microfone.recognize_google(audioCapturado, language='pt-BR')
-                comandoReconhecido = comandoReconhecido.lower()
+        while True:
+            try:
+                with sr.Microphone() as source:
+                    print('Escutando...')
+                    audioCapturado = self.microfone.listen(source)
+                    comandoReconhecido = self.microfone.recognize_google(audioCapturado, language='pt-BR')
+                    comandoReconhecido = comandoReconhecido.lower()
 
-                print("Comando capturado: " + comandoReconhecido)
-                return comandoReconhecido
-        except Exception as err:
-            display_message('Audio não foi capturado...')
-            print('Audio não foi capturado...')
-            print(err)
-            return None
+                    print("Comando capturado: " + comandoReconhecido)
+                    return comandoReconhecido
+            except sr.UnknownValueError:
+                display_message('Não foi possível te entender. Diga novamente...')
+            except sr.RequestError as e:
+                display_message(f'Erro de requisição com o serviço de reconhecimento de fala: {e}. Tentando novamente...')
+                print(f'Erro de requisição com o serviço de reconhecimento de fala: {e}. Tentando novamente...')
+            except Exception as err:
+                display_message('Erro inesperado ao capturar o áudio. Tentando novamente...')
+                print('Erro inesperado ao capturar o áudio.')
+                print(err)
