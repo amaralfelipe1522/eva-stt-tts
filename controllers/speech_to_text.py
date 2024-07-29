@@ -9,7 +9,7 @@ class STTModule:
         while True:
             try:
                 with sr.Microphone() as source:
-                    print('Escutando...')
+                    print('Eva está te escutando...')
                     audioCapturado = self.microfone.listen(source)
                     comandoReconhecido = self.microfone.recognize_google(audioCapturado, language='pt-BR')
                     comandoReconhecido = comandoReconhecido.lower()
