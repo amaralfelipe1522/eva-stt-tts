@@ -17,6 +17,12 @@ RUN apt-get update && apt-get install -y \
     pulseaudio \
     && rm -rf /var/lib/apt/lists/*
 
+# Dependências para acessar o servidor X11
+RUN apt-get update && apt-get install -y \
+    x11-apps \
+    libx11-dev \
+    && rm -rf /var/lib/apt/lists/*
+
 # Copia o arquivo requirements.txt para o diretório de trabalho
 COPY requirements.txt .
 

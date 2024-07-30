@@ -7,16 +7,12 @@ docker build -t amaralfelipe1522/eva-stt-tts:2.0 .
 ```
 
 ```docker
-docker run --rm -it --privileged --name eva\
+docker run -it --rm --name eva\
     --device /dev/snd \
     --group-add audio \
+    -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix \
     -e PULSE_SERVER=unix:/run/user/$(id -u)/pulse/native \
     -v /run/user/$(id -u)/pulse/native:/run/user/$(id -u)/pulse/native \
-    -v /run/user/$(id -u)/pulse:/run/user/$(id -u)/pulse \
-    -e XDG_RUNTIME_DIR=/run/user/$(id -u) \
-    -v /etc/machine-id:/etc/machine-id \
-    -v /usr/share/alsa/usr/share/alsa \
-    -v /etc/asound.conf/etc/asound.conf \
     amaralfelipe1522/eva-stt-tts:2.0
 ```
 
