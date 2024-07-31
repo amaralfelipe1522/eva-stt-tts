@@ -6,6 +6,10 @@ Módulo responsável por realizar o processo de STT e TTS da assistente virtual 
 docker build -t amaralfelipe1522/eva-stt-tts:2.0 .
 ```
 
+```
+xhost +local:docker
+```
+
 ```docker
 docker run -it --rm --name eva\
     --device /dev/snd \
