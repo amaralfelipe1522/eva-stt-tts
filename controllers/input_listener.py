@@ -7,9 +7,9 @@ def processar_audio():
     stt_module = STTModule()
     comando = stt_module.capturar_audio()
     if comando:
-        respostaAPI = api_caller.get()
+        resposta = api_caller.get_chatgpt(comando)
         # print(f"Comando recebido: {comando}")
-        display_message(respostaAPI)
+        display_message(resposta)
     else:
         print("Nenhum comando recebido.")
                  

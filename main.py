@@ -1,3 +1,4 @@
+from controllers import api_caller
 from controllers.input_listener import start_listening
 import threading
 import time
@@ -6,6 +7,8 @@ from views.display import display_message
 def main():
     print('EVA iniciada')
     display_message('Olá eu sou a Eva')
+    resposta = api_caller.get_chatgpt()
+    display_message(resposta)
 
     # Cria e inicia a thread que escuta a tecla Espaço
     thread_escuta_tecla = threading.Thread(target=start_listening)
