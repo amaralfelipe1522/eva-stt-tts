@@ -39,7 +39,6 @@ sudo apt install portaudio19-dev python3-dev
 
 ## TO DO
 
-- Alterar a chamada para o Ollama para Stream e se necessário, capturar por streaming todas as palavras até encontrar ponto final e enviar ao modulo de TTS;
 - Melhorar PROMPTs;
 - Criar microserviço a parte para comunicação com banco de dados relacional;
 - Armazenar no BD o resumo da ultima sessão;

@@ -3,12 +3,13 @@ from controllers.input_listener import start_listening
 import threading
 import time
 from views.display import display_message
+from utils import prompts
 
 def main():
     print('EVA iniciada')
     display_message('Olá eu sou a Eva')
-    resposta = generativeAI_selector.get('ollama','Se apresente em poucas palavras')
-    display_message(resposta)
+    for resposta in generativeAI_selector.get('ollama', prompts.prompt_dnd):
+        display_message(resposta)
 
     # Cria e inicia a thread que escuta a tecla Espaço
     thread_escuta_tecla = threading.Thread(target=start_listening)

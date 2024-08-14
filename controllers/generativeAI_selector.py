@@ -1,3 +1,4 @@
+import json
 import os
 import openai
 from dotenv import load_dotenv
@@ -50,30 +51,38 @@ def get_ollama(input):
         data = {
             'model': 'llama3.1',
             'prompt': input,
-            'stream': False
+            'stream': True
         }
 
-        response = requests.post(url, headers=headers, json=data)
+        accumulated_response = ''
+        with requests.post(url, headers=headers, json=data, stream=True) as response:
+            if response.status_code == 200:
+                for line in response.iter_lines():
+                    if line:
+                        ai_response = json.loads(line.decode('utf-8'))
+                        accumulated_response += ai_response.get('response', '')
 
-        if response.status_code == 200:
-            ai_response = response.json()
-            return ai_response['response']
-        else:
-            return 'Erro em se conectar com a I.A Generativa'
+                        # Transcreve para voz quando encontrar um delimitador, como um espaço ou ponto final
+                        if accumulated_response.endswith((' ', '.', '\n')):
+                            yield accumulated_response
+                            accumulated_response = ''
+            else:
+                yield 'Erro em se conectar com a I.A Generativa'
         
     except Exception as e:
-            print(f'Ocorreu um erro na comunicação com o Ollama: {e}')
+        print(f'Ocorreu um erro na comunicação com o Ollama: {e}')
+        yield f'Ocorreu um erro: {e}'
 
-def get(ai_name: str, input: str) -> str:
+def get(ai_name, input):
     """
     Seleciona e chama a IA generativa com base no nome fornecido.
 
     Parâmetros:
-    ai_name (str): Nome da IA generativa a ser chamada ('ollama' ou 'chatgpt').
-    input (str): Texto ou prompt que será enviado à IA selecionada.
+    ai_name: Nome da IA generativa a ser chamada ('ollama' ou 'chatgpt').
+    input: Texto ou prompt que será enviado à IA selecionada.
 
     Retorna:
-    str: Resposta gerada pela IA ou uma mensagem de erro se a IA não for encontrada.
+    Resposta gerada pela IA ou uma mensagem de erro se a IA não for encontrada.
     """
     if ai_name == 'ollama':
          return get_ollama(input)

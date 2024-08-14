@@ -7,9 +7,8 @@ def processar_audio():
     stt_module = STTModule()
     comando = stt_module.capturar_audio()
     if comando:
-        # resposta = api_caller.get_chatgpt(comando)
-        resposta = generativeAI_selector.get('ollama', comando)
-        display_message(resposta)
+        for resposta in generativeAI_selector.get('ollama', comando):
+            display_message(resposta)
     else:
         print("Nenhum comando recebido.")
                  
