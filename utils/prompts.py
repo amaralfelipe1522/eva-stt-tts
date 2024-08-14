@@ -427,3 +427,5 @@ prompt_pokemon = '''
                         Exibir a ficha completa do PERSONAGEM e a localização inicial.
                         Oferecer um resumo do histórico do PERSONAGEM e me notificar sobre a sintaxe para ações e falas.
 '''
+
+prompt_test = 'Voce é uma IA que sabe tudo sobre anime'
