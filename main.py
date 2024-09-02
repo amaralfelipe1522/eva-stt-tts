@@ -7,7 +7,8 @@ from utils import prompts
 
 def main():
     print('EVA iniciada')
-    display_message('Olá eu sou a Eva')
+
+    display_message('Carregando a aventura.. aguarde um momento..')
     for resposta in generativeAI_selector.get('ollama', prompts.prompt_dnd):
         display_message(resposta)
 

@@ -39,7 +39,9 @@ sudo apt install portaudio19-dev python3-dev
 
 ## TO DO
 
-- Melhorar PROMPTs;
+- Melhorar PROMPTs:
+    - ... seguido de frase na mesma linha;
+    - narrativas entre parenteses (olhando em volta)
 - Criar microserviço a parte para comunicação com banco de dados relacional;
 - Armazenar no BD o resumo da ultima sessão;
 - Importar no modulo EVA o resumo salvo no BD para entrar como PROMPT;

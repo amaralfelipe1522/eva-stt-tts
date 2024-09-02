@@ -5,9 +5,9 @@ from views.display import display_message
 
 def processar_audio():
     stt_module = STTModule()
-    comando = stt_module.capturar_audio()
+    comando = stt_module.capturar_audio() 
     if comando:
-        for resposta in generativeAI_selector.get('ollama', comando):
+        for resposta in generativeAI_selector.get('ollama', '- '+comando):
             display_message(resposta)
     else:
         print("Nenhum comando recebido.")

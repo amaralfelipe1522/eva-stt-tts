@@ -7,6 +7,8 @@ import utils.prompts as prompt
 
 load_dotenv()
 
+conversation_history = []
+
 def get_chatgpt(input = 'greeting'):
         try:
             openai_api_key = os.getenv('OPENAI_API_KEY')
@@ -43,14 +45,24 @@ def get_chatgpt(input = 'greeting'):
             print(f'Ocorreu um erro na comunicação com o ChatGPT: {e}')
 
 def get_ollama(input):
+
+    global conversation_history
     try:     
-        url = 'https://perfect-violently-pig.ngrok-free.app/api/generate'
+        url = 'https://perfect-violently-pig.ngrok-free.app/api/chat'
         headers = {
             'Content-Type': 'application/json'
         }
+
+        # if 'conversation_history' not in locals():
+        #     print('conversation_history criado')
+        #     conversation_history = []
+        
+        
+        conversation_history.append({'role': 'user', 'content': input})
+        print(conversation_history)
         data = {
             'model': 'llama3.1',
-            'prompt': input,
+            'messages': conversation_history,
             'stream': True
         }
 
@@ -60,12 +72,16 @@ def get_ollama(input):
                 for line in response.iter_lines():
                     if line:
                         ai_response = json.loads(line.decode('utf-8'))
-                        accumulated_response += ai_response.get('response', '')
+                        accumulated_response += ai_response["message"]["content"]
 
-                        # Transcreve para voz quando encontrar um delimitador, como um espaço ou ponto final
-                        if accumulated_response.endswith((' ', '.', '\n')):
+                        if accumulated_response.endswith((' ', '.', '\n')) and not accumulated_response.endswith('...'):
+                            conversation_history.append({'role': 'assistant', 'content': accumulated_response})
                             yield accumulated_response
                             accumulated_response = ''
+
+                if accumulated_response:
+                    conversation_history.append({'role': 'assistant', 'content': accumulated_response})
+                    yield accumulated_response
             else:
                 yield 'Erro em se conectar com a I.A Generativa'
         
