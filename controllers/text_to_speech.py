@@ -1,7 +1,10 @@
+import os
+import sys
+sys.stdout = open(os.devnull, 'w')
 import pygame
+sys.stdout = sys.__stdout__
 import boto3 # type: ignore
 from dotenv import load_dotenv # type: ignore
-import os
 from gtts import gTTS
 from io import BytesIO
 from pydub import AudioSegment, effects

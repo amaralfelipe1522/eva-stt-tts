@@ -4,6 +4,7 @@ import openai
 from dotenv import load_dotenv
 import requests
 import utils.prompts as prompt
+import re as regex
 
 load_dotenv()
 
@@ -47,19 +48,21 @@ def get_chatgpt(input = 'greeting'):
 def get_ollama(input):
 
     global conversation_history
+
+    if len(conversation_history) > 50:
+        total = len(conversation_history)
+        exceeded = total - 50
+        for i in range(1, exceeded):
+            conversation_history.pop(i)
+
     try:     
         url = 'https://perfect-violently-pig.ngrok-free.app/api/chat'
         headers = {
             'Content-Type': 'application/json'
-        }
-
-        # if 'conversation_history' not in locals():
-        #     print('conversation_history criado')
-        #     conversation_history = []
-        
+        }        
         
         conversation_history.append({'role': 'user', 'content': input})
-        print(conversation_history)
+
         data = {
             'model': 'llama3.1',
             'messages': conversation_history,
@@ -74,7 +77,7 @@ def get_ollama(input):
                         ai_response = json.loads(line.decode('utf-8'))
                         accumulated_response += ai_response["message"]["content"]
 
-                        if accumulated_response.endswith((' ', '.', '\n')) and not accumulated_response.endswith('...'):
+                        if regex.search(r'(?: |\.\n?)$', accumulated_response) and not regex .search(r' \d', accumulated_response[-3:]) and not accumulated_response.endswith('...'):
                             conversation_history.append({'role': 'assistant', 'content': accumulated_response})
                             yield accumulated_response
                             accumulated_response = ''

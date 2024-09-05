@@ -7,7 +7,7 @@ def processar_audio():
     stt_module = STTModule()
     comando = stt_module.capturar_audio() 
     if comando:
-        for resposta in generativeAI_selector.get('ollama', '- '+comando):
+        for resposta in generativeAI_selector.get('ollama', comando):
             display_message(resposta)
     else:
         print("Nenhum comando recebido.")
@@ -17,6 +17,7 @@ def on_press(key):
         if key == keyboard.Key.space:
             print("Tecla Espaço pressionada.")
             processar_audio()
+        # criar nova variante de tecla esperada
     except AttributeError:
         pass
 
