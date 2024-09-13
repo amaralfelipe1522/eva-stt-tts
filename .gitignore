@@ -11,3 +11,6 @@ venv.bak/
 __pycache__/
 *.py[cod]
 *$py.class
+
+# Others
+*.mp3
