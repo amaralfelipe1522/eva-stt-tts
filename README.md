@@ -6,12 +6,8 @@ Módulo responsável por realizar o processo de STT e TTS da assistente virtual 
 docker build -t amaralfelipe1522/eva-stt-tts:2.0 .
 ```
 
-```
-xhost +local:docker
-```
-
 ```docker
-docker run -it --rm --name eva\
+xhost +local:docker && docker run -it --rm --name eva\
     --device /dev/snd \
     --group-add audio \
     -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix \
@@ -41,7 +37,10 @@ sudo apt install portaudio19-dev python3-dev
 
 - Melhorar PROMPTs 
     - Testar recentes alterações relacionadas a rolagem de dados;
+    - Entender que Amaral é seu personagem, não seu companheiro;
 - Melhorar logs
 - Armazenar no Mongodb o resumo da ultima sessão (conversation_history);
 - Importar o resumo salvo no MongoDB para entrar como PROMPT e continuar de onde parou;
 - Criar microserviço a parte para comunicação com banco de dados relacional;
+
+1.45gb
