@@ -4,8 +4,12 @@ FROM python:3.10-slim
 # Define o diretório de trabalho dentro do container
 WORKDIR /app
 
+# Cria um usuário não-root
+RUN useradd -ms /bin/sh appuser
+
 # Instala as dependências do sistema
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
     ffmpeg \
     libasound2-dev \
     portaudio19-dev \
@@ -15,10 +19,6 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     alsa-utils \
     pulseaudio \
-    && rm -rf /var/lib/apt/lists/*
-
-# Dependências para acessar o servidor X11 
-RUN apt-get update && apt-get install -y \
     x11-apps \
     libx11-dev \
     && rm -rf /var/lib/apt/lists/*
@@ -35,5 +35,11 @@ RUN pip install pyaudio
 # Copia o código fonte da aplicação para o diretório de trabalho
 COPY . .
 
+# Ajusta permissões dos arquivos e diretório para o usuário não-root
+RUN chown -R appuser:appuser /app
+
+# Muda para o usuário não-root
+USER appuser
+
 # Define o comando padrão para executar a aplicação
-CMD ["sh", "-c", "python3 main.py 2>/dev/null"]
+CMD ["python3", "main.py"]
