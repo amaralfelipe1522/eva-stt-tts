@@ -57,7 +57,7 @@ Essas dependências são necessárias para que o EVA possa capturar e processar 
     - Melhorar respostas relacionadas a rolagem de dados.
     - Refinar o entendimento da IA para diferenciar jogadores, personagens e companheiros de forma clara.
 2. Otimização dos Logs:
-    - Criar logs detalhados e organizar o terminal para melhor leitura.
+    - Criar logs detalhados e organizar o terminal para melhor leitura, se possível com interface.
 3. Otimização da Imagem Docker:
     - Reduzir o tamanho da imagem Docker para melhorar desempenho e uso de recursos.
 4. Armazenamento de Sessões no MongoDB:
