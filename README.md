@@ -1,5 +1,5 @@
 # EVA - RPG Bot
-EVA é o módulo principal de um bot para RPG, projetado para facilitar a interação entre jogadores e o ambiente do jogo, utilizando transcrição de voz para texto e integração com IA generativa. O módulo se concentra na comunicação interativa e em melhorar a experiência de narrativa nos jogos de RPG.
+EVA é o módulo principal de um bot para RPG, projetado para facilitar a interação entre jogadores e o ambiente do jogo, utilizando transcrição de voz para texto (gTTS), texto pra voz (AWS Polly) e integração com IA generativa (localmente com Ollama). O módulo se concentra na comunicação interativa e em melhorar a experiência de narrativa nos jogos de RPG.
 
 ![EVA Avatar](./assets/img/eva-avatar.webp)
 ## Recursos Principais
