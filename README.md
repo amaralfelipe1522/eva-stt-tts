@@ -51,16 +51,24 @@ A instalação do FFmpeg pode variar conforme o sistema operacional. Abaixo est�
     ```
 Essas dependências são necessárias para que o EVA possa capturar e processar áudio, além de integrar recursos em Python que exigem compilação.
 
-## Próximos passos
+## Próximos passos: Multiagentes + MCP
 
-1. Aprimoramento dos PROMPTs:
-    - Melhorar respostas relacionadas a rolagem de dados.
-    - Refinar o entendimento da IA para diferenciar jogadores, personagens e companheiros de forma clara.
-2. Otimização dos Logs:
-    - Criar logs detalhados e organizar o terminal para melhor leitura, se possível com interface.
-3. Otimização da Imagem Docker:
-    - Reduzir o tamanho da imagem Docker para melhorar desempenho e uso de recursos.
-4. Armazenamento de Sessões no MongoDB:
-    - Armazenar o histórico de conversação para retomar sessões anteriores e enriquecer as interações futuras.
-5. Criação de Microserviço para Banco de Dados Relacional:
-    - Desenvolver um microserviço separado para gerenciar as interações com um banco de dados relacional.
+1. Narrador Principal
+- Responsável por descrever cenários, eventos e manter a história coerente.
+- Pode interagir com outros agentes para enriquecer a narrativa.
+
+2. Gerador de NPCs
+- Cria personagens com personalidade, aparência e objetivos.
+- Pode consultar um banco de dados via MCP para nomes, culturas, etc.
+
+3. Agente de Regras
+- Valida ações dos jogadores conforme o sistema (D&D, Tormenta, etc.).
+- Usa MCP para acessar PDFs ou APIs com regras oficiais.
+
+4. Agente de Clima e Ambiente
+- Gera descrições dinâmicas do clima, sons, iluminação.
+- Pode usar MCP para puxar dados reais (ex.: clima atual da cidade para inspiração).
+
+5. Agente de Música e Sons
+- Sugere trilhas sonoras ou efeitos sonoros.
+- MCP pode integrar com Spotify ou bancos de áudio.
